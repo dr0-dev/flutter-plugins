@@ -80,6 +80,14 @@ public class WebViewActivity extends Activity {
 
   // Verifies that a url opened by `Window.open` has a secure url.
   private class FlutterWebChromeClient extends WebChromeClient {
+
+      @Override
+      public void onPermissionRequest(PermissionRequest request) {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+              request.grant(request.getResources());
+          }
+      }
+
     @Override
     public boolean onCreateWindow(
         final WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
